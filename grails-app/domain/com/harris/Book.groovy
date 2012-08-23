@@ -10,7 +10,7 @@ class Book {
 		rating(range:1..10)
 	}
 
-	static belongsTo = Author
+	static belongsTo = [author:Author]
 	static hasMany = [authors:Author]
 
 	String title
