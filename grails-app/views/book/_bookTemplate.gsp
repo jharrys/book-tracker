@@ -1,4 +1,4 @@
-<div class="Book" id="${bookInstance?.id}">
-   <div>Title: ${bookInstance?.title}</div>
-   <div>id: ${bookInstance?.id}</div>
+<div class="Book" id="${book?.id }">
+   <div>last: ${book?.title}</div>
+   <div>name: ${book?.isbn}</div>
 </div>

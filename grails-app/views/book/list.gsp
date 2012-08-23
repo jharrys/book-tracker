@@ -52,7 +52,7 @@
 					
 						<td>${fieldValue(bean: bookInstance, field: "rating")}</td>
 					
-						<td>authors:${bookInstance.authors[0].lastName }</td>
+						<td><g:render template="bookTemplate" model="['book':bookInstance]" /></td>
 					
 					</tr>
 				</g:each>
