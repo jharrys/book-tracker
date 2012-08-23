@@ -10,8 +10,8 @@ class Book {
 		rating(range:1..10)
 	}
 
-	static belongsTo = [author:Author]
 	static hasMany = [authors:Author]
+	static belongsTo = Author
 
 	String title
 	Date readDate
