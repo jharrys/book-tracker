@@ -7,7 +7,9 @@ class BookController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        //redirect(action: "list", params: params)
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		[bookList: Book.list(params)]
     }
 
     def list() {

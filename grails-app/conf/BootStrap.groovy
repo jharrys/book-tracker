@@ -5,7 +5,9 @@ class BootStrap {
     def init = { servletContext ->
     	switch(GrailsUtil.environment) {
     		case "development":
-		    	def kassi = new com.harris.Author(firstName: "Kassi", middleName:"B", lastName: "Harris")
+				def jsFolder = grailsAttributes.getApplicationContext().getResource("js/").getFile()
+				String dir = applicationContent.getResource("/").getFile()
+		    	/*def kassi = new com.harris.Author(firstName: "Kassi", middleName:"B", lastName: "Harris")
 		    	def john = new com.harris.Author (firstName: "John", middleName:"C", lastName: "Ferrari")
 		    	kassi.save(failOnError: true)
 		    	john.save(failOnError: true)
@@ -33,7 +35,7 @@ class BootStrap {
 
 				if(book2.hasErrors()) {
 					println book2.errors
-				}
+				}*/
 
 		    	break
 		    case "production": break
