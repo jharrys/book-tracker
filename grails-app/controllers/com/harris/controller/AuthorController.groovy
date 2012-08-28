@@ -1,6 +1,8 @@
-package com.harris
+package com.harris.controller
 
 import org.springframework.dao.DataIntegrityViolationException
+
+import com.harris.domain.Author;
 
 class AuthorController {
 

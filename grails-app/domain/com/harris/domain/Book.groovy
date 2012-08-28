@@ -1,4 +1,4 @@
-package com.harris
+package com.harris.domain
 
 class Book {
 

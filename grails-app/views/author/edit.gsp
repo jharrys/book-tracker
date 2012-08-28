@@ -1,4 +1,4 @@
-<%@ page import="com.harris.Author" %>
+<%@ page import="com.harris.domain.Author" %>
 <!doctype html>
 <html>
 	<head>

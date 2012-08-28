@@ -3,6 +3,10 @@ package com.harris
 
 
 import org.junit.*
+
+import com.harris.controller.BookController;
+import com.harris.domain.Book;
+
 import grails.test.mixin.*
 
 @TestFor(BookController)

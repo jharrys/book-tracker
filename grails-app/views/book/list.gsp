@@ -1,5 +1,5 @@
 
-<%@ page import="com.harris.Book" %>
+<%@ page import="com.harris.domain.Book" %>
 <!doctype html>
 <html>
 	<head>

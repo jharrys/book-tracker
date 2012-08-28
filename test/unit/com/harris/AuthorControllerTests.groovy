@@ -3,6 +3,10 @@ package com.harris
 
 
 import org.junit.*
+
+import com.harris.controller.AuthorController;
+import com.harris.domain.Author;
+
 import grails.test.mixin.*
 
 @TestFor(AuthorController)
