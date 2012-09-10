@@ -1,20 +1,23 @@
 package com.harris.domain
 
-class Author {
-
-    static constraints = {
-    	firstName(blank:false)
-    	middleName()
-    	lastName(blank:false)
-    }
-
-    static hasMany = [books:Book]
-
-    String lastName
-    String firstName
-    String middleName
-
-    String toString() {
-    	"${lastName}, ${firstName}"
-    }
+class Author
+{
+	
+	String lastName
+	String firstName
+	String middleName
+	
+	static hasMany = [books:Book]
+	
+	static constraints =
+	{
+		firstName nullable:true
+		middleName nullable:true
+		lastName nullable:true
+	}
+	
+	String toString()
+	{
+		"${lastName}, ${firstName}"
+	}
 }

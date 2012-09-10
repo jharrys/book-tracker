@@ -1,3 +1,4 @@
+<%@ page import="com.harris.domain.Book" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <g:each in="${result }" var="r">
-            listing: ${r }<br>
-        </g:each>
+            message: ${result }<br>
     </div>
+    blah
+    <hr>
+    <%= Book.list() %>
 </body>
 </html>

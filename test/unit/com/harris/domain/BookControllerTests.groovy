@@ -1,11 +1,10 @@
-package com.harris
+package com.harris.domain
 
 
 
 import org.junit.*
 
 import com.harris.controller.BookController;
-import com.harris.domain.Book;
 
 import grails.test.mixin.*
 
@@ -13,15 +12,14 @@ import grails.test.mixin.*
 @Mock(Book)
 class BookControllerTests {
 
-
     def populateValidParams(params) {
-      assert params != null
-      // TODO: Populate valid properties like...
-      //params["name"] = 'someValidName'
+        assert params != null
+        // TODO: Populate valid properties like...
+        //params["name"] = 'someValidName'
     }
 
     void testIndex() {
-        controller.indexjohn()
+        controller.index()
         assert "/book/list" == response.redirectedUrl
     }
 
@@ -34,9 +32,9 @@ class BookControllerTests {
     }
 
     void testCreate() {
-       def model = controller.create()
+        def model = controller.create()
 
-       assert model.bookInstance != null
+        assert model.bookInstance != null
     }
 
     void testSave() {
@@ -61,7 +59,6 @@ class BookControllerTests {
         assert flash.message != null
         assert response.redirectedUrl == '/book/list'
 
-
         populateValidParams(params)
         def book = new Book(params)
 
@@ -79,7 +76,6 @@ class BookControllerTests {
 
         assert flash.message != null
         assert response.redirectedUrl == '/book/list'
-
 
         populateValidParams(params)
         def book = new Book(params)
@@ -100,7 +96,6 @@ class BookControllerTests {
         assert response.redirectedUrl == '/book/list'
 
         response.reset()
-
 
         populateValidParams(params)
         def book = new Book(params)

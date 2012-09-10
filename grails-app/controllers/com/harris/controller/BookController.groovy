@@ -9,13 +9,11 @@ class BookController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        //redirect(action: "list", params: params)
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		[bookList: Book.list(params)]
+        redirect(action: "list", params: params)
     }
 
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+    def list(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
         [bookInstanceList: Book.list(params), bookInstanceTotal: Book.count()]
     }
 
@@ -30,15 +28,14 @@ class BookController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.id])
         redirect(action: "show", id: bookInstance.id)
     }
 
-    def show() {
-        def bookInstance = Book.get(params.id)
-		
+    def show(Long id) {
+        def bookInstance = Book.get(id)
         if (!bookInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), id])
             redirect(action: "list")
             return
         }
@@ -46,10 +43,10 @@ class BookController {
         [bookInstance: bookInstance]
     }
 
-    def edit() {
-        def bookInstance = Book.get(params.id)
+    def edit(Long id) {
+        def bookInstance = Book.get(id)
         if (!bookInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), id])
             redirect(action: "list")
             return
         }
@@ -57,16 +54,15 @@ class BookController {
         [bookInstance: bookInstance]
     }
 
-    def update() {
-        def bookInstance = Book.get(params.id)
+    def update(Long id, Long version) {
+        def bookInstance = Book.get(id)
         if (!bookInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), id])
             redirect(action: "list")
             return
         }
 
-        if (params.version) {
-            def version = params.version.toLong()
+        if (version != null) {
             if (bookInstance.version > version) {
                 bookInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                           [message(code: 'book.label', default: 'Book')] as Object[],
@@ -83,26 +79,26 @@ class BookController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.id])
         redirect(action: "show", id: bookInstance.id)
     }
 
-    def delete() {
-        def bookInstance = Book.get(params.id)
+    def delete(Long id) {
+        def bookInstance = Book.get(id)
         if (!bookInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'book.label', default: 'Book'), id])
             redirect(action: "list")
             return
         }
 
         try {
             bookInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'book.label', default: 'Book'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'book.label', default: 'Book'), id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'book.label', default: 'Book'), params.id])
-            redirect(action: "show", id: params.id)
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'book.label', default: 'Book'), id])
+            redirect(action: "show", id: id)
         }
     }
 }

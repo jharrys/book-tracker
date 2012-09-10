@@ -2,44 +2,44 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'title', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'title', 'error')} ">
 	<label for="title">
 		<g:message code="book.title.label" default="Title" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:textField name="title" required="" value="${bookInstance?.title}"/>
+	<g:textField name="title" value="${bookInstance?.title}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'isbnType', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'isbnType', 'error')} ">
 	<label for="isbnType">
 		<g:message code="book.isbnType.label" default="Isbn Type" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:select name="isbnType" from="${bookInstance.constraints.isbnType.inList}" required="" value="${fieldValue(bean: bookInstance, field: 'isbnType')}" valueMessagePrefix="book.isbnType"/>
+	<g:select name="isbnType" from="${bookInstance.constraints.isbnType.inList}" value="${fieldValue(bean: bookInstance, field: 'isbnType')}" valueMessagePrefix="book.isbnType" noSelection="['': '']"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'isbn', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'isbn', 'error')} ">
 	<label for="isbn">
 		<g:message code="book.isbn.label" default="Isbn" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:textField name="isbn" required="" value="${bookInstance?.isbn}"/>
+	<g:textField name="isbn" value="${bookInstance?.isbn}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'readDate', 'error')} required">
-	<label for="readDate">
-		<g:message code="book.readDate.label" default="Read Date" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:datePicker name="readDate" precision="day"  value="${bookInstance?.readDate}"  />
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'rating', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'rating', 'error')} ">
 	<label for="rating">
 		<g:message code="book.rating.label" default="Rating" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:select name="rating" from="${1..10}" class="range" required="" value="${fieldValue(bean: bookInstance, field: 'rating')}"/>
+	<g:select name="rating" from="${0..10}" class="range" value="${fieldValue(bean: bookInstance, field: 'rating')}" noSelection="['': '']"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'readDate', 'error')} ">
+	<label for="readDate">
+		<g:message code="book.readDate.label" default="Read Date" />
+		
+	</label>
+	<g:datePicker name="readDate" precision="day"  value="${bookInstance?.readDate}" default="none" noSelection="['': '']" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: bookInstance, field: 'authors', 'error')} ">

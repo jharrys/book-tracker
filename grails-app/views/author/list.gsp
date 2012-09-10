@@ -48,6 +48,7 @@
 			</table>
 			<div class="pagination">
 				<g:paginate total="${authorInstanceTotal}" />
+				(Total = ${authorInstanceTotal })
 			</div>
 		</div>
 	</body>

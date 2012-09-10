@@ -50,20 +50,20 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${bookInstance?.readDate}">
-				<li class="fieldcontain">
-					<span id="readDate-label" class="property-label"><g:message code="book.readDate.label" default="Read Date" /></span>
-					
-						<span class="property-value" aria-labelledby="readDate-label"><g:formatDate date="${bookInstance?.readDate}" /></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${bookInstance?.rating}">
 				<li class="fieldcontain">
 					<span id="rating-label" class="property-label"><g:message code="book.rating.label" default="Rating" /></span>
 					
 						<span class="property-value" aria-labelledby="rating-label"><g:fieldValue bean="${bookInstance}" field="rating"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${bookInstance?.readDate}">
+				<li class="fieldcontain">
+					<span id="readDate-label" class="property-label"><g:message code="book.readDate.label" default="Read Date" /></span>
+					
+						<span class="property-value" aria-labelledby="readDate-label"><g:formatDate date="${bookInstance?.readDate}" /></span>
 					
 				</li>
 				</g:if>
