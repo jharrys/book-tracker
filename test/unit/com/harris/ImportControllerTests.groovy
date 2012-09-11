@@ -5,12 +5,12 @@ package com.harris
 import grails.test.mixin.*
 import org.junit.*
 
-import com.harris.controller.MyimportController;
+import com.harris.controller.ImportExportController;
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(MyimportController)
+@TestFor(ImportExportController)
 class ImportControllerTests {
 
     void testSomething() {

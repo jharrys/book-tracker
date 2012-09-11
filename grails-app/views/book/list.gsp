@@ -15,6 +15,11 @@
 				<li><g:link class="create" action="create">
 						<g:message code="default.new.label" args="[entityName]" />
 					</g:link></li>
+				<li><g:form action="search">
+						<div class="search">
+							Search Books <input type="text" name="q" value="${params.q}" /> <input type="submit" value="Search" />
+						</div>
+					</g:form></li>
 			</ul>
 		</div>
 		<div id="list-book" class="content scaffold-list" role="main">
@@ -45,9 +50,9 @@
 							<td>
 								${fieldValue(bean: bookInstance, field: "isbnType")}
 							</td>
-							<td>
-							     <a href="http://www.amazon.com/gp/search/ref=sr_adv_b/?field-isbn=${fieldValue(bean: bookInstance, field: "isbn") }" target="_blank"> amazon: ${fieldValue(bean: bookInstance, field: "isbn")}</a><br> 
-							     <a href="http://www.isbnsearch.org/isbn/${fieldValue(bean: bookInstance, field: "isbn") }" target="_blank">isbnsearch: ${fieldValue(bean: bookInstance, field: "isbn")}</a>
+							<td><a href="http://www.amazon.com/gp/search/ref=sr_adv_b/?field-isbn=${fieldValue(bean: bookInstance, field: "isbn") }" target="_blank">
+									amazon: ${fieldValue(bean: bookInstance, field: "isbn")}
+							</a><br> <a href="http://www.isbnsearch.org/isbn/${fieldValue(bean: bookInstance, field: "isbn") }" target="_blank">isbnsearch: ${fieldValue(bean: bookInstance, field: "isbn")}</a>
 							</td>
 							<td>
 								${fieldValue(bean: bookInstance, field: "rating")}
@@ -59,7 +64,8 @@
 			</table>
 			<div class="pagination">
 				<g:paginate total="${bookInstanceTotal}" />
-				(Total = ${bookInstanceTotal })
+				(Total =
+				${bookInstanceTotal })
 			</div>
 		</div>
 	</div>

@@ -9,15 +9,12 @@ class Author
 	
 	static hasMany = [books:Book]
 	
+	static searchable = true
+	
 	static constraints =
 	{
 		firstName nullable:true
 		middleName nullable:true
 		lastName nullable:true
-	}
-	
-	String toString()
-	{
-		"${lastName}, ${firstName}"
 	}
 }

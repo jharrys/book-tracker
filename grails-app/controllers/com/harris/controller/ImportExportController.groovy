@@ -7,26 +7,25 @@ import java.text.*
 
 import com.harris.domain.*
 
-class MyimportController
+class ImportExportController
 {
 	
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
 	def index()
 	{
-		[books: Book.list()]
+		render("Implement me ....")
 	}
 	
-	def myimport()
-	{
-		[msg : "Import"]
-	}
-	
+	/*
+	 * TODO create a progress bar
+	 * TODO add button and explain that it's being loaded from /import/books.json
+	 * TODO create a new page to upload content from local file
+	 */
 	def doimport()
 	{
 		File file = grailsAttributes.getApplicationContext().getResource("/import/books.json").getFile()
 		FileReader fr = null
-		def result = ""
 		
 		try
 		{
@@ -34,12 +33,9 @@ class MyimportController
 			BufferedReader br = new BufferedReader(new FileReader(file))
 			String line = ""
 			def dateParser = new SimpleDateFormat("MM/dd/yyyy")
-			int x = 0
 			while((line = br.readLine()) != null)
 			{
-				System.out.println("JJJJ: " + line)
 				def json = JSON.parse(line)
-				//json.id = ++x
 				json.readDate = dateParser.parse(json.readDate)
 				
 				// first take care of authors; JSON doesn't deal with JSONArrays very well (it's documented)
@@ -63,40 +59,44 @@ class MyimportController
 				}
 				json.remove("authors")
 				
-				System.out.println("JJJJ: " + json)
+				Book b = Book.findByIsbn(json.isbn)
 				
-				Book b = new Book(json)
-				b.save(flush:true, failOnError:true)
-				
-				authorList.each { author ->
-					author.addToBooks(b)
-					author.save(failOnError:true)
+				if(b == null) {
+					b = new Book(json)
+					b.save()
+					authorList.each { author ->
+						author.addToBooks(b)
+						author.save(failOnError:true)
+					}
+				} else {
+					if (!(b.authors.containsAll(authorList))) {
+						b.authors.each { author ->
+							if(!authorList.contains(author)) {
+								author.addToBooks(b)
+							}
+						}
+					}
 				}
 			}
 		} catch (Exception e)
 		{
-			System.err.println("blahn " + e)
-			result = e
+			System.err.println(e)
+			flash.message = e
 		}
-		[result : result ? result:"Done"]
+		
+		forward action: "list", controller: "book"
 	}
 	
+	/*
+	 * TODO create a page to save JSON to local file (see http://blogs.bytecode.com.au/glen/2006/09/12/grails-sending-a-file-to-the-browser.html)
+	 * response.setHeader("Content-disposition", "attachment; filename=" +
+	 session.userid + ".csv");
+	 render(contentType: "text/csv", text: sw.toString());
+	 */
 	def doexport()
 	{
-		Book a = new Book(title: "A", rating: 2, readDate: new Date(), isbnType: 13, isbn: 1234)
-		Book b = new Book(title: "B", rating: 1, readDate: new Date(), isbnType: 13, isbn: 1234)
-		Book c = new Book(title: "C", rating: 4, readDate: new Date(), isbnType: 13, isbn: 1234)
-		Book d = new Book(title: "D", rating: 6, readDate: new Date(), isbnType: 13, isbn: 1234)
-		a.save(true)
-		b.save(true)
-		c.save(true)
-		d.save(true)
-		
-		//		System.out.println(a.toString())
-		
-		//		render(contentType: "text/json")
-		//		{ a }
-		
-		render Book.list() as JSON
+		// TODO this does not render nested authors correctly: see http://javasplitter.blogspot.com/2009/07/json-in-grails-with-nested-collections.html
+		response.setHeader("Content-disposition", "attachment; filename=test.json")
+		render (contentType: "application/json", text: Book.list() as JSON)
 	}
 }
